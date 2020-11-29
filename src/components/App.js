@@ -41,7 +41,7 @@ export default class App extends Component{
                 top: document.documentElement.scrollHeight,
                 behavior: 'smooth',
             });
-        },500)
+        },1000)
     }
 
 

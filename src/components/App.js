@@ -48,20 +48,21 @@ export default class App extends Component{
 
         this.setState({ loading: true });
     
-        hitsApi.fetchHits({searchQuery:searchQuery, page:page}).then(data => {
-                    this.setState(prevState => ({
-                        imageGalleries: [...prevState.imageGalleries, ...data],
-                        page: prevState.page+1
-                    }))
-                })
-            .catch(error => this.setState({ error:error }))
-            .finally(() => {
-                window.scrollTo({
-                    top: document.documentElement.scrollHeight,
-                    behavior: 'smooth',
-                });
-                this.setState({ loading: false })
+        hitsApi.fetchHits({searchQuery:searchQuery, page:page})
+        .then(data => {
+                this.setState(prevState => ({
+                    imageGalleries: [...prevState.imageGalleries, ...data],
+                    page: prevState.page+1
+                }))
             })
+        .catch(error => this.setState({ error:error }))
+        .finally(() => {
+            window.scrollTo({
+                top: document.documentElement.scrollHeight,
+                behavior: 'smooth',
+            });
+            this.setState({ loading: false })
+        })
     }
 
     showIdModel = (id) =>{

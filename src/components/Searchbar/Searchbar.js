@@ -4,33 +4,21 @@ import PropTypes from 'prop-types';
 
 export default class Searchbar extends Component{
 
-    constructor(props){
-        super(props);
-
-        this.state = {
-            search: this.props.search
-        }
-    }
-
-    static defaultProps = {
+    state = {
         search: ''
     }
 
-    static propTypes = {
-        search: PropTypes.string.isRequired
-    }
-
-    handleChange = evt => {
-        this.setState({ search: evt.target.value });
+    handleChange = ({target}) => {
+        this.setState({ search: target.value });
     }
 
     handleSubmit = evt => {
         evt.preventDefault();
 
-        const { changeSearch } = this.props;
+        const { onSearch } = this.props;
         const { search } = this.state;
 
-        changeSearch(search);
+        onSearch(search);
     }
 
     render(){

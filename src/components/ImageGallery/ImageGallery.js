@@ -6,8 +6,8 @@ export default function ImageGallery({imageGalleries, showIdModel}){
 
     return(
         <ul className="ImageGallery">
-            {imageGalleries.map(item => (
-                <ImageGalleryItem key={item.id} src={item.webformatURL} id={item.id} showIdModel={showIdModel} />
+            {imageGalleries.map(({id, webformatURL}) => (
+                <ImageGalleryItem key={id} src={webformatURL} showIdModel={showIdModel} />
             ))}
         </ul>
     )

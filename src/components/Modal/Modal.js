@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+
+const modalRoot = document.querySelector('#modal-root');
 
 export default class Modal extends Component{
-    constructor(props){
-        super(props);
-    }
 
     componentDidMount = () => {
         window.addEventListener('keydown', this.handler)
@@ -11,20 +11,27 @@ export default class Modal extends Component{
     componentWillUnmount = () => {
         window.removeEventListener('keydown', this.handler)
     }
-    handler = evt => {
-        if (evt.key === 'Escape') {
-            this.props.closeModal()
-        }
+
+    handler = ({ key }) => {
+        if (key === 'Escape') this.props.closeModal()
+    }
+
+    handleBackdrop = evt =>{
+        // console.log(evt.currentTarget);
+        // console.log(evt.target);
+
+        if(evt.currentTarget === evt.target) this.props.closeModal()
     }
 
     render(){
-        const { src, closeModal } = this.props
-        return(
-            <div className="Overlay" onClick={closeModal} >
+        const { src } = this.props
+        return ReactDOM.createPortal(
+            <div className="Overlay" onClick={this.handleBackdrop} >
                 <div className="Modal">
                     <img src={src} alt="" />
                 </div>
-            </div>
-        )
+            </div>, 
+            modalRoot
+        );
     }
 }
